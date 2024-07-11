@@ -58,3 +58,5 @@ I'd be happy to see this project grow and become more useful for the community.
 If you want to host the code yourself you can do so by cloning the repo and running it on your server.
 The code is very simple and does not require any database or any other dependencies.
 The only thing you need is a PHP server.
+
+In our case we are using a simple Apache server with PHP installed and the code is automatically deployed to the server on every push to the `main` branch (using webhooks not the github actions).
