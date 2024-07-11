@@ -1,13 +1,10 @@
 {
-    "name": "your-vendor-name/arduino-library-badge",
+    "name": "simplefoc/arduino-library-badge",
     "description": "PHP script for generating Arduino library badges",
     "type": "project",
     "require": {
         "php": "^7.2"
     },
     "autoload": {
-        "psr-4": {
-            "": ""
-        }
     }
 }
