@@ -1,11 +1,12 @@
 # A simple PHP based Arduino library badge generator
 
 
-Make sure to check out https://github.com/gilmaimon/ArduBadge from @gilmaimon which is an awesome repo that has 
-done this first, but is recently fallen out of maintenance. 
-This repo is not really the fork of that project nor does it use the same approach, 
+Make sure to check out [ArduBadge](https://github.com/gilmaimon/ArduBadge) from [@gilmaimon](https://github.com/gilmaimon) which is an awesome repo that has 
+done this many years ago, but is recently fallen out of maintenance ( Jul 2024 ). 
+This repo is not really a fork of that project nor does it use the same approach, 
 but it is inspired by it and reults in the same output.
 
+I still invite you to test the [ArduBadge](https://github.com/gilmaimon/ArduBadge) repo first, before using this project :D
 
 ## What is this?
 
