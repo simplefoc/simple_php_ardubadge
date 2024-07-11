@@ -3,7 +3,7 @@
     "description": "PHP script for generating Arduino library badges",
     "type": "project",
     "require": {
-        "php": "^7.2"
+        "php": "^8"
     },
     "autoload": {
     }
