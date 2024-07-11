@@ -12,8 +12,12 @@ I still invite you to test the [ArduBadge](https://github.com/gilmaimon/ArduBadg
 
 This is a simple PHP based Arduino library badge generator. 
 It generates a badge for your Arduino library by fetching the data from the
- Arduino website. The code can not be run on github as it does not support PHP, so it is hosted on 
- https://ardubadge.simplefoc.com/ 
+Arduino website. The code can not be run on github as it does not support PHP, so it is hosted on 
+https://ardubadge.simplefoc.com/ 
+
+The generation process is simple:
+1. The repo gets the name of the library from the url and finds the lates version of the library on the arduino website that matches the name. It parses `https://www.arduino.cc/reference/en/libraries/library+name/`. The code will cache the library versions and only fetch it once a day. 
+2. Once it fetched it the code builds a badge based on the [github badges](https://github.com/badges/shields).
 
 
 ## How to use it?
