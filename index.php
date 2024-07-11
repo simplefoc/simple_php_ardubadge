@@ -48,5 +48,5 @@ if (!$name || !$version) {
 } else {
     $badge_url = "https://img.shields.io/badge/Library%20Manager-" . $name . "%20" . $version . "-green?logo=arduino&color=%233C1";
 }
-echo "hello"
+echo "hello";
 echo file_get_contents($badge_url);
