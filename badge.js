@@ -1,89 +1,51 @@
-const http = require('http');
-const https = require('https');
-const url = require('url');
-const fs = require('fs');
-const path = require('path');
+<?php
 
-const CACHE_FILE = path.join('/tmp', 'arduino_lib_cache.json');
-
-// Function to extract version from HTML
-function getVersion(html) {
-    const versionMatch = html.match(/(\d+\.\d+\.\d+)<\/a>\s+\(latest\)/);
-    return versionMatch ? versionMatch[1] : null;
+function get_version($str) {
+    preg_match('/(\d+\.\d+\.\d+)<\/a>\s+\(latest\)/', $str, $matches);
+    return $matches[1];
 }
 
-// Function to extract name from HTML
-function getName(html) {
-    const nameMatch = html.match(/<h1>(.*?)<\/h1>/);
-    return nameMatch ? nameMatch[1] : null;
+function get_name($str) {
+    preg_match('/<h1>(.*?)<\/h1>/', $str, $matches);
+    return $matches[1];
 }
 
-// Load cache from file
-let cache = {};
-if (fs.existsSync(CACHE_FILE)) {
-    const cacheData = fs.readFileSync(CACHE_FILE);
-    cache = JSON.parse(cacheData);
+if (!isset($_GET["lib"])) {
+    die;
 }
 
-const server = http.createServer((req, res) => {
-    const query = url.parse(req.url, true).query;
-    const lib = query.lib;
+$lib = $_GET["lib"];
+$cache_file = '/tmp/arduino_lib_' . md5($lib) . '.cache';
 
-    if (!lib) {
-        res.writeHead(400, { 'Content-Type': 'text/plain' });
-        res.end('Library name is required');
-        return;
+if (file_exists($cache_file) && (time() - filemtime($cache_file) < 0)) {
+    // Use cached version if it's less than a day old
+    $data = json_decode(file_get_contents($cache_file), true);
+    $name = $data['name'];
+    $version = $data['version'];
+} else {
+    $url = "https://www.arduino.cc/reference/en/libraries/" . strtolower(str_replace(" ", "-", $lib)) . "/";
+    $website = @file_get_contents($url);
+
+    if ($website === false) {
+        $badge_url = "https://img.shields.io/badge/Library%20Manager-" . urlencode($lib) . "-red?logo=arduino";
+        echo file_get_contents($badge_url);
+        die;
     }
 
-    const cacheKey = `arduino_lib_${lib}`;
+    $version = get_version($website);
+    $name = get_name($website);
 
-    if (cache[cacheKey] && (Date.now() - cache[cacheKey].timestamp < 86400000)) { // 1 day in milliseconds
-        const data = cache[cacheKey].data;
-        sendBadgeUrl(res, data.name, data.version);
-    } else {
-        const libraryUrl = `https://www.arduino.cc/reference/en/libraries/${lib.toLowerCase().replace(/\s+/g, '-')}/`;
-
-        https.get(libraryUrl, (response) => {
-            let data = '';
-
-            response.on('data', (chunk) => {
-                data += chunk;
-            });
-
-            response.on('end', () => {
-                const version = getVersion(data);
-                const name = getName(data);
-
-                if (name && version) {
-                    cache[cacheKey] = {
-                        data: { name, version },
-                        timestamp: Date.now()
-                    };
-                    fs.writeFileSync(CACHE_FILE, JSON.stringify(cache));
-                    sendBadgeUrl(res, name, version);
-                } else {
-                    sendErrorBadge(res, lib);
-                }
-            });
-        }).on('error', () => {
-            sendErrorBadge(res, lib);
-        });
+    if ($name && $version) {
+        // Cache the results
+        $data = ['name' => $name, 'version' => $version];
+        file_put_contents($cache_file, json_encode($data));
     }
-});
-
-function sendBadgeUrl(res, name, version) {
-    const badgeUrl = `https://img.shields.io/badge/Library%20Manager-${encodeURIComponent(name)}%20${encodeURIComponent(version)}-green?logo=arduino&color=%233C1`;
-    res.writeHead(302, { 'Location': badgeUrl });
-    res.end();
 }
 
-function sendErrorBadge(res, lib) {
-    const badgeUrl = `https://img.shields.io/badge/Library%20Manager-${encodeURIComponent(lib)}-red?logo=arduino`;
-    res.writeHead(302, { 'Location': badgeUrl });
-    res.end();
+if (!$name || !$version) {
+    $badge_url = "https://img.shields.io/badge/Library%20Manager-" . urlencode($lib) . "-red?logo=arduino";
+} else {
+    $badge_url = "https://img.shields.io/badge/Library%20Manager-" . $name . "%20" . $version . "-green?logo=arduino&color=%233C1";
 }
 
-const port = process.env.PORT || 3000;
-server.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
-});
+echo file_get_contents($badge_url);
