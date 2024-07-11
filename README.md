@@ -22,7 +22,7 @@ To use this badge generator, you need to provide the name of the library you wan
 The URL to generate the badge is:
 
 ```
-https://ardubadge.simplefoc.com?lib=library_name
+https://ardubadge.simplefoc.com?lib=library+name
 ```
 The output for the `Simple FOC` library will be:
 
@@ -32,12 +32,12 @@ The output for the `Simple FOC` library will be:
 
 You can embed the badge in your README by using the following markdown code:
 ```markdown
-![Arduino Library](https://ardubadge.simplefoc.com?lib=Simple+FOC)
+![Arduino Library](https://ardubadge.simplefoc.com?lib=library+name)
 ```
 
 or using the pure HTML code:
 ```html
-  <img src="https://ardubadge.simplefoc.com?lib=Simple+FOC" alt="Arduino Library">
+  <img src="https://ardubadge.simplefoc.com?lib=library+name" alt="Arduino Library">
 ```
 
 > Make sure to put `+` for empty spaces if your library has some
