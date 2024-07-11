@@ -26,16 +26,18 @@ https://ardubadge.simplefoc.com?lib=library_name
 ```
 The output for the `Simple FOC` library will be:
 
-<img src="https://ardubadge.simplefoc.com?lib=Simple FOC">
+![](https://ardubadge.simplefoc.com?lib=Simple+FOC)
 
 ## How to embed it in your README?
 
 You can embed the badge in your README by using the following markdown code:
 ```markdown
-![Arduino Library](https://ardubadge.simplefoc.com?lib=Simple FOC)
+![Arduino Library](https://ardubadge.simplefoc.com?lib=Simple+FOC)
 ```
 
 or using the pure HTML code:
 ```html
-  <img src="https://ardubadge.simplefoc.com?lib=Simple FOC" alt="Arduino Library">
+  <img src="https://ardubadge.simplefoc.com?lib=Simple+FOC" alt="Arduino Library">
 ```
+
+> Make sure to put `+` for empty spaces if your library has some
