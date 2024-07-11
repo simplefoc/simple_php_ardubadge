@@ -12,10 +12,10 @@ function get_name($str) {
 }
 
 if (!isset($_GET["lib"])) {
-    die;
+    $lib = "No lib specified";
+}else{
+    $lib = $_GET["lib"];
 }
-
-$lib = $_GET["lib"];
 $cache_file = '/tmp/arduino_lib_' . md5($lib) . '.cache';
 
 if (file_exists($cache_file) && (time() - filemtime($cache_file) < 86000)) {
