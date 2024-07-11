@@ -46,3 +46,15 @@ or using the pure HTML code:
 ```
 
 > Make sure to put `+` for empty spaces if your library has some
+
+
+## Contributing
+
+If you want to contribute to this project, feel free to open an issue or a pull request.
+I'd be happy to see this project grow and become more useful for the community.
+
+## Hosting the code yourself
+
+If you want to host the code yourself you can do so by cloning the repo and running it on your server.
+The code is very simple and does not require any database or any other dependencies.
+The only thing you need is a PHP server.
