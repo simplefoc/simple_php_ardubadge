@@ -18,7 +18,7 @@ if (!isset($_GET["lib"])) {
 }
 $cache_file = '/tmp/arduino_lib_' . md5($lib) . '.cache';
 
-if (file_exists($cache_file) && (time() - filemtime($cache_file) < 86000)) {
+if (file_exists($cache_file) && (time() - filemtime($cache_file) < 6*60*60)) { // if 6 hours has passed from the last check
     // Use cached version if it's less than 1 day
     $data = json_decode(file_get_contents($cache_file), true);
     $name = $data['name'];
