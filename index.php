@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: image/svg+xml');
+header('Cache-Control: no-cache');
 
 function get_version($str) {
     preg_match('/(\d+\.\d+\.\d+)<\/a>\s+\(latest\)/', $str, $matches);
